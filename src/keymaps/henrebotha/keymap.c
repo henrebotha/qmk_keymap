@@ -1,4 +1,4 @@
-// v1.3
+// v1.3.1
 //
 // TODO:
 // * Make Tmux layer respect Shift. E.g. `/` shouldn't send `C-?`, it should
@@ -7,6 +7,7 @@
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
+#include "action_util.h"
 #include "version.h"
 
 #include "keymap_german.h"
@@ -45,7 +46,6 @@ enum custom_keycodes {
   TMUX_MR,
   TMUX_SH,
   TMUX_SV,
-
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -308,19 +308,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_LCTRL("b") "|");
       }
       break;
-
+    case CTL_T(KC_ESCAPE):
+      if (record->event.pressed) {
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        return false;
+      }
+      break;
   }
   return true;
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
-
     uint8_t layer = biton32(state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
+
     switch (layer) {
       case 1:
         ergodox_right_led_1_on();
@@ -352,5 +357,4 @@ uint32_t layer_state_set_user(uint32_t state) {
         break;
     }
     return state;
-
 };
