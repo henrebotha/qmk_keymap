@@ -1,8 +1,4 @@
-// v1.3.1
-//
-// TODO:
-// * Make Tmux layer respect Shift. E.g. `/` shouldn't send `C-?`, it should
-//   send `C-/`.
+// v1.3.2
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -20,32 +16,6 @@ enum custom_keycodes {
   EPRM,
   VRSN,
   RGB_SLD,
-  TMUX_0,
-  TMUX_1,
-  TMUX_2,
-  TMUX_3,
-  TMUX_4,
-  TMUX_5,
-  TMUX_6,
-  TMUX_7,
-  TMUX_8,
-  TMUX_9,
-  TMUX_A,
-  TMUX_C,
-  TMUX_D,
-  TMUX_H,
-  TMUX_J,
-  TMUX_K,
-  TMUX_L,
-  TMUX_S,
-  TMUX_W,
-  TMUX_Z,
-  TMUX_CL,
-  TMUX_HL,
-  TMUX_ML,
-  TMUX_MR,
-  TMUX_SH,
-  TMUX_SV,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -119,23 +89,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,   _______,   _______
   ),
 
-  // tmux layer
+  // tmux layer — inherits mappings from layer zero, see process_record_user
   [3] = KEYMAP(
-      _______, TMUX_1,  TMUX_2,  TMUX_3,  TMUX_4,  TMUX_5,     _______,
-      _______, _______, TMUX_W,  _______, _______, _______,    TMUX_ML,
-      _______, TMUX_A,  TMUX_S,  TMUX_D,  _______, _______,
-      _______, TMUX_Z,  _______, TMUX_C,  _______, LCTL(KC_B), TMUX_SH,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,
 
       _______, _______,
       _______,
       _______, _______, _______,
 
-      _______, TMUX_6,  TMUX_7,  TMUX_8,  TMUX_9,  TMUX_0,     _______,
-      TMUX_MR, _______, _______, _______, _______, _______,    TMUX_SV,
-               TMUX_H,  TMUX_J,  TMUX_K,  TMUX_L,  TMUX_CL,    _______,
-      _______, _______, _______, _______, _______, TMUX_HL,    _______,
-                        _______, _______, _______, _______,    _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
 
       _______, _______,
       _______,
@@ -164,156 +134,14 @@ void matrix_init_user(void) {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
+  if (biton32(layer_state) == 3) {
+    // Only prefix on keydown
+    if (record->event.pressed) {
+      if (keycode >= KC_A && keycode <= KC_UP) {
+        SEND_STRING(SS_LCTRL("b"));
+        return true;
       }
-      return false;
-      break;
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-    case TMUX_0:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "0");
-      }
-      break;
-    case TMUX_1:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "1");
-      }
-      break;
-    case TMUX_2:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "2");
-      }
-      break;
-    case TMUX_3:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "3");
-      }
-      break;
-    case TMUX_4:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "4");
-      }
-      break;
-    case TMUX_5:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "5");
-      }
-      break;
-    case TMUX_6:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "6");
-      }
-      break;
-    case TMUX_7:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "7");
-      }
-      break;
-    case TMUX_8:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "8");
-      }
-      break;
-    case TMUX_9:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "9");
-      }
-      break;
-    case TMUX_A:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "a");
-      }
-      break;
-    case TMUX_C:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "c");
-      }
-      break;
-    case TMUX_D:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "d");
-      }
-      break;
-    case TMUX_H:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "h");
-      }
-      break;
-    case TMUX_J:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "j");
-      }
-      break;
-    case TMUX_K:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "k");
-      }
-      break;
-    case TMUX_L:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "l");
-      }
-      break;
-    case TMUX_S:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "s");
-      }
-      break;
-    case TMUX_W:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "W");
-      }
-      break;
-    case TMUX_Z:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "z");
-      }
-      break;
-    case TMUX_CL:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") ":");
-      }
-      break;
-    case TMUX_HL:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "?");
-      }
-      break;
-    case TMUX_ML:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "{");
-      }
-      break;
-    case TMUX_MR:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "}");
-      }
-      break;
-    case TMUX_SH:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "-");
-      }
-      break;
-    case TMUX_SV:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("b") "|");
-      }
-      break;
-    case CTL_T(KC_ESCAPE):
-      if (record->event.pressed) {
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-        return false;
-      }
-      break;
+    }
   }
   return true;
 }
