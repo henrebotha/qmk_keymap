@@ -56,17 +56,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,           KC_Q,     KC_W,    KC_E,     KC_R,      KC_T,             LCTL(KC_B),
       CTL_T(KC_ESCAPE), KC_A,     KC_S,    KC_D,     KC_F,      KC_G,
       KC_LGUI,          KC_Z,     KC_X,    KC_C,     KC_V,      KC_B,             KC_MINUS,
-      OSL(2),           KC_TRNS,  KC_TRNS, OSL(3),   OSL(2),
+      OSL(2),           _______,  _______, OSL(3),   OSL(2),
 
       KC_MUTE,          KC_VOLU,
       KC_VOLD,
       KC_LSHIFT,        KC_SPACE, KC_LALT,
 
       RESET,            KC_6,     KC_7,    KC_8,     KC_9,      KC_0,             KC_BSPACE,
-      KC_TRNS,          KC_Y,     KC_U,    KC_I,     KC_O,      KC_P,             KC_BSLASH,
+      _______,          KC_Y,     KC_U,    KC_I,     KC_O,      KC_P,             KC_BSLASH,
       KC_H,             KC_J,     KC_K,    KC_L,     KC_SCOLON, KC_QUOTE,
       KC_EQUAL,         KC_N,     KC_M,    KC_COMMA, KC_DOT,    KC_SLASH,         KC_RGUI,
-      OSL(2),           OSL(3),   KC_TRNS, KC_TRNS,  OSL(2),
+      OSL(2),           OSL(3),   _______, _______,  OSL(2),
 
       KC_MPRV,          KC_MNXT,
       KC_MPLY,
@@ -75,71 +75,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // gaming layer (to be completed)
   [1] = KEYMAP(
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TO(0),
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      _______, _______, _______, _______, _______, _______, TO(0),
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
 
-      KC_TRNS, KC_TRNS,
-      KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS,
+      _______, _______,
+      _______,
+      _______, _______, _______,
 
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______,
 
-      KC_TRNS, KC_TRNS,
-      KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS
+      _______, _______,
+      _______,
+      _______, _______, _______
   ),
 
   // function layer
   [2] = KEYMAP(
-      KC_ESCAPE, KC_F1,     KC_F2,       KC_F3,    KC_F4,       KC_F5,   KC_TRNS,
-      KC_TRNS,   KC_PGUP,   KC_HOME,     KC_UP,    KC_END,      KC_TRNS, KC_TRNS,
-      KC_TRNS,   KC_PGDOWN, KC_LEFT,     KC_DOWN,  KC_RIGHT,    KC_TRNS,
-      KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_LPRN,  KC_LBRACKET, KC_LCBR, KC_TRNS,
-      KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS,
+      KC_ESCAPE, KC_F1,     KC_F2,       KC_F3,    KC_F4,       KC_F5,   _______,
+      _______,   KC_PGUP,   KC_HOME,     KC_UP,    KC_END,      _______, _______,
+      _______,   KC_PGDOWN, KC_LEFT,     KC_DOWN,  KC_RIGHT,    _______,
+      _______,   _______,   _______,     KC_LPRN,  KC_LBRACKET, KC_LCBR, _______,
+      _______,   _______,   _______,     _______,  _______,
 
-      KC_TRNS,   KC_TRNS,
-      KC_TRNS,
-      KC_TRNS,   KC_TRNS,   KC_TRNS,
+      _______,   _______,
+      _______,
+      _______,   _______,   _______,
 
-      KC_TRNS,   KC_F6,     KC_F7,       KC_F8,    KC_F9,       KC_F10,  KC_DELETE,
-      KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_F11,      KC_F12,  KC_INSERT,
-      KC_LEFT,   KC_DOWN,   KC_UP,       KC_RIGHT, KC_QUOTE,    KC_TRNS,
-      KC_TRNS,   KC_RCBR,   KC_RBRACKET, KC_RPRN,  KC_TRNS,     KC_TRNS, KC_TRNS,
-      KC_TRNS,   KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS,
+      _______,   KC_F6,     KC_F7,       KC_F8,    KC_F9,       KC_F10,  KC_DELETE,
+      _______,   _______,   _______,     _______,  KC_F11,      KC_F12,  KC_INSERT,
+      KC_LEFT,   KC_DOWN,   KC_UP,       KC_RIGHT, KC_QUOTE,    _______,
+      _______,   KC_RCBR,   KC_RBRACKET, KC_RPRN,  _______,     _______, _______,
+      _______,   _______,   _______,     _______,  _______,
 
-      KC_TRNS,   KC_TRNS,
-      KC_TRNS,
-      KC_TRNS,   KC_TRNS,   KC_TRNS
+      _______,   _______,
+      _______,
+      _______,   _______,   _______
   ),
 
   // tmux layer
   [3] = KEYMAP(
-      KC_TRNS, TMUX_1,  TMUX_2,  TMUX_3,  TMUX_4,  TMUX_5,     KC_TRNS,
-      KC_TRNS, KC_TRNS, TMUX_W,  KC_TRNS, KC_TRNS, KC_TRNS,    TMUX_ML,
-      KC_TRNS, TMUX_A,  TMUX_S,  TMUX_D,  KC_TRNS, KC_TRNS,
-      KC_TRNS, TMUX_Z,  KC_TRNS, TMUX_C,  KC_TRNS, LCTL(KC_B), TMUX_SH,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      _______, TMUX_1,  TMUX_2,  TMUX_3,  TMUX_4,  TMUX_5,     _______,
+      _______, _______, TMUX_W,  _______, _______, _______,    TMUX_ML,
+      _______, TMUX_A,  TMUX_S,  TMUX_D,  _______, _______,
+      _______, TMUX_Z,  _______, TMUX_C,  _______, LCTL(KC_B), TMUX_SH,
+      _______, _______, _______, _______, _______,
 
-      KC_TRNS, KC_TRNS,
-      KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS,
+      _______, _______,
+      _______,
+      _______, _______, _______,
 
-      KC_TRNS, TMUX_6,  TMUX_7,  TMUX_8,  TMUX_9,  TMUX_0,     KC_TRNS,
-      TMUX_MR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    TMUX_SV,
-               TMUX_H,  TMUX_J,  TMUX_K,  TMUX_L,  TMUX_CL,    KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TMUX_HL,    KC_TRNS,
-                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,
+      _______, TMUX_6,  TMUX_7,  TMUX_8,  TMUX_9,  TMUX_0,     _______,
+      TMUX_MR, _______, _______, _______, _______, _______,    TMUX_SV,
+               TMUX_H,  TMUX_J,  TMUX_K,  TMUX_L,  TMUX_CL,    _______,
+      _______, _______, _______, _______, _______, TMUX_HL,    _______,
+                        _______, _______, _______, _______,    _______,
 
-      KC_TRNS, KC_TRNS,
-      KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS
+      _______, _______,
+      _______,
+      _______, _______, _______
   ),
 };
 
