@@ -3,6 +3,9 @@ KEYBOARD=ergodox_ez
 KEYMAP=henrebotha
 QMK_DIR=qmk_firmware
 
+# 0. Clean
+rm -rf .build
+
 # 1. Copy my files into their appropriate locations inside QMK
 mkdir -p $QMK_DIR/keyboards/$KEYBOARD/keymaps/$KEYMAP
 cp -r src/keymaps/$KEYMAP $QMK_DIR/keyboards/$KEYBOARD/keymaps/
