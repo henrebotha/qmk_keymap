@@ -1,4 +1,4 @@
-// v1.3.2
+// v1.4
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -18,15 +18,23 @@ enum custom_keycodes {
   RGB_SLD,
 };
 
+enum layers {
+  LAYER_HOME = 0,
+  LAYER_GAMING,
+  LAYER_FUNCTION,
+  LAYER_TMUX,
+  LAYER_GS_GGX2
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // home layer
-  [0] = KEYMAP(
+  [LAYER_HOME] = KEYMAP(
       KC_GRAVE,         KC_1,     KC_2,    KC_3,     KC_4,      KC_5,             TG(1),
       KC_TAB,           KC_Q,     KC_W,    KC_E,     KC_R,      KC_T,             LCTL(KC_B),
       CTL_T(KC_ESCAPE), KC_A,     KC_S,    KC_D,     KC_F,      KC_G,
       KC_LGUI,          KC_Z,     KC_X,    KC_C,     KC_V,      KC_B,             KC_MINUS,
-      OSL(2),           _______,  _______, OSL(3),   OSL(2),
+      OSL(2),           _______,  KC_LEAD, OSL(3),   OSL(2),
 
       KC_MUTE,          KC_VOLU,
       KC_VOLD,
@@ -36,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,          KC_Y,     KC_U,    KC_I,     KC_O,      KC_P,             KC_BSLASH,
       KC_H,             KC_J,     KC_K,    KC_L,     KC_SCOLON, KC_QUOTE,
       KC_EQUAL,         KC_N,     KC_M,    KC_COMMA, KC_DOT,    KC_SLASH,         KC_RGUI,
-      OSL(2),           OSL(3),   _______, _______,  OSL(2),
+      OSL(2),           OSL(3),   KC_LEAD, _______,  OSL(2),
 
       KC_MPRV,          KC_MNXT,
       KC_MPLY,
@@ -44,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // gaming layer (to be completed)
-  [1] = KEYMAP(
+  [LAYER_GAMING] = KEYMAP(
       _______, _______, _______, _______, _______, _______, TO(0),
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,
@@ -67,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // function layer
-  [2] = KEYMAP(
+  [LAYER_FUNCTION] = KEYMAP(
       KC_ESCAPE, KC_F1,     KC_F2,       KC_F3,    KC_F4,       KC_F5,   _______,
       _______,   KC_PGUP,   KC_HOME,     KC_UP,    KC_END,      _______, _______,
       _______,   KC_PGDOWN, KC_LEFT,     KC_DOWN,  KC_RIGHT,    _______,
@@ -90,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // tmux layer — inherits mappings from layer zero, see process_record_user
-  [3] = KEYMAP(
+  [LAYER_TMUX] = KEYMAP(
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,
@@ -106,6 +114,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______,
+
+      _______, _______,
+      _______,
+      _______, _______, _______
+  ),
+
+  // game-specific layer
+  [LAYER_GS_GGX2] = KEYMAP(
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, KC_A,    KC_S,    KC_D,    _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, TO(0),   _______, _______,
+
+      _______, _______,
+      _______,
+      KC_W,    _______, _______,
+
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, TO(0),   _______, _______,
 
       _______, _______,
       _______,
@@ -132,6 +163,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 void matrix_init_user(void) {
 };
+
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    // Guilty Gear XX Accent Core Plus R, aka the final GG X2
+    SEQ_FOUR_KEYS(KC_G, KC_G, KC_X, KC_2) {
+      layer_on(LAYER_GS_GGX2);
+    }
+  }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (biton32(layer_state) == 3) {
