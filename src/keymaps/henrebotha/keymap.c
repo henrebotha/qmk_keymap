@@ -23,7 +23,8 @@ enum layers {
   LAYER_GAMING,
   LAYER_FUNCTION,
   LAYER_TMUX,
-  LAYER_GS_GGX2
+  LAYER_GS_GGX2,
+  LAYER_GS_SCB
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -142,6 +143,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,
       _______, _______, _______
   ),
+
+  // game-specific layer
+  [LAYER_GS_SCB] = KEYMAP(
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, KC_UP,   _______, _______, _______,
+      _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT,_______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, TO(0),   _______, _______,
+
+      _______, _______,
+      _______,
+      _______, _______, _______,
+
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, KC_Z,    KC_X,    _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, TO(0),   _______, _______,
+
+      _______, _______,
+      _______,
+      _______, _______, _______
+  ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -174,6 +198,11 @@ void matrix_scan_user(void) {
     // Guilty Gear XX Accent Core Plus R, aka the final GG X2
     SEQ_FOUR_KEYS(KC_G, KC_G, KC_X, KC_2) {
       layer_on(LAYER_GS_GGX2);
+    }
+
+    // Super Crate Box
+    SEQ_THREE_KEYS(KC_S, KC_C, KC_B) {
+      layer_on(LAYER_GS_SCB);
     }
   }
 }
