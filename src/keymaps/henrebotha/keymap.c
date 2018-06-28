@@ -1,4 +1,4 @@
-// v1.4
+// v1.4.1
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -30,12 +30,12 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // home layer
-  [LAYER_HOME] = KEYMAP(
+  [LAYER_HOME] = LAYOUT_ergodox(
       KC_GRAVE,         KC_1,     KC_2,    KC_3,     KC_4,      KC_5,             TG(1),
       KC_TAB,           KC_Q,     KC_W,    KC_E,     KC_R,      KC_T,             LCTL(KC_B),
       CTL_T(KC_ESCAPE), KC_A,     KC_S,    KC_D,     KC_F,      KC_G,
       KC_LGUI,          KC_Z,     KC_X,    KC_C,     KC_V,      KC_B,             KC_MINUS,
-      OSL(2),           _______,  KC_LEAD, OSL(3),   OSL(2),
+      KC_HYPR,          _______,  KC_LEAD, OSL(3),   OSL(2),
 
       KC_MUTE,          KC_VOLU,
       KC_VOLD,
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,          KC_Y,     KC_U,    KC_I,     KC_O,      KC_P,             KC_BSLASH,
       KC_H,             KC_J,     KC_K,    KC_L,     KC_SCOLON, KC_QUOTE,
       KC_EQUAL,         KC_N,     KC_M,    KC_COMMA, KC_DOT,    KC_SLASH,         KC_RGUI,
-      OSL(2),           OSL(3),   KC_LEAD, _______,  OSL(2),
+      OSL(2),           OSL(3),   KC_LEAD, _______,  KC_HYPR,
 
       KC_MPRV,          KC_MNXT,
       KC_MPLY,
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // gaming layer (to be completed)
-  [LAYER_GAMING] = KEYMAP(
+  [LAYER_GAMING] = LAYOUT_ergodox(
       _______, _______, _______, _______, _______, _______, TO(0),
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // function layer
-  [LAYER_FUNCTION] = KEYMAP(
+  [LAYER_FUNCTION] = LAYOUT_ergodox(
       KC_ESCAPE, KC_F1,     KC_F2,       KC_F3,    KC_F4,       KC_F5,   _______,
       _______,   KC_PGUP,   KC_HOME,     KC_UP,    KC_END,      _______, _______,
       _______,   KC_PGDOWN, KC_LEFT,     KC_DOWN,  KC_RIGHT,    _______,
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // tmux layer — inherits mappings from layer zero, see process_record_user
-  [LAYER_TMUX] = KEYMAP(
+  [LAYER_TMUX] = LAYOUT_ergodox(
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // game-specific layer
-  [LAYER_GS_GGX2] = KEYMAP(
+  [LAYER_GS_GGX2] = LAYOUT_ergodox(
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, KC_A,    KC_S,    KC_D,    _______,
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // game-specific layer
-  [LAYER_GS_SCB] = KEYMAP(
+  [LAYER_GS_SCB] = LAYOUT_ergodox(
       _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, KC_UP,   _______, _______, _______,
       _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT,_______,
