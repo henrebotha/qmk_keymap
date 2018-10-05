@@ -1,4 +1,4 @@
-// v1.4.1
+// v1.5.0
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -16,6 +16,7 @@ enum custom_keycodes {
   EPRM,
   VRSN,
   RGB_SLD,
+  KC_TASK,
 };
 
 enum layers {
@@ -35,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,           KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,   LCTL(KC_B), _______,  KC_Y,    KC_U,    KC_I,      KC_O,     KC_P,     KC_BSLASH,
     CTL_T(KC_ESCAPE), KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_H,       KC_J,     KC_K,    KC_L,    KC_SCOLON, KC_QUOTE,
     KC_LGUI,          KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_MINUS,   KC_EQUAL, KC_N,    KC_M,    KC_COMMA,  KC_DOT,   KC_SLASH, KC_RGUI,
-    KC_HYPR,          _______, KC_LEAD, OSL(3), OSL(2), OSL(2), OSL(3),     KC_LEAD,  _______, KC_HYPR,
+    KC_HYPR,          KC_TASK, KC_LEAD, OSL(3), OSL(2), OSL(2), OSL(3),     KC_LEAD,  _______, KC_HYPR,
 
     KC_MUTE,   KC_VOLU,  KC_MPRV, KC_MNXT,
     KC_VOLD,   KC_MPLY,
@@ -148,13 +149,24 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (biton32(layer_state) == 3) {
+  if (record->event.pressed) {
     // Only prefix on keydown
-    if (record->event.pressed) {
+    if (biton32(layer_state) == 3) {
       if (keycode >= KC_A && keycode <= KC_UP) {
         SEND_STRING(SS_LCTRL("b"));
         return true;
       }
+    }
+    switch(keycode) {
+      case KC_TASK:
+        SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_TAB));
+        return false;
+    }
+  } else {
+    switch(keycode) {
+      case KC_TASK:
+        SEND_STRING(SS_UP(X_LALT));
+        return false;
     }
   }
   return true;
