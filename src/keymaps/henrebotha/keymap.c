@@ -1,4 +1,4 @@
-// v1.5.0
+// v1.5.1
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -131,6 +131,9 @@ void matrix_init_user(void) {
 
 LEADER_EXTERNS();
 
+bool kc_task_release_after_500 = false;
+uint16_t kc_task_release_time;
+
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
     leading = false;
@@ -146,6 +149,13 @@ void matrix_scan_user(void) {
       layer_on(LAYER_GS_SCB);
     }
   }
+
+  if (kc_task_release_after_500) {
+    if (timer_elapsed(kc_task_release_time) > 500) {
+       SEND_STRING(SS_UP(X_LALT));
+       kc_task_release_after_500 = false;
+    }
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -159,13 +169,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     switch(keycode) {
       case KC_TASK:
+        kc_task_release_after_500 = false;
         SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_TAB));
         return false;
     }
   } else {
     switch(keycode) {
       case KC_TASK:
-        SEND_STRING(SS_UP(X_LALT));
+        kc_task_release_after_500 = true;
+        kc_task_release_time = timer_read();
         return false;
     }
   }
