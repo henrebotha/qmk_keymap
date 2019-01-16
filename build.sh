@@ -3,6 +3,8 @@ KEYBOARD=ergodox_ez
 KEYMAP=henrebotha
 QMK_DIR=qmk_firmware
 
+set -e
+
 # 0. Clean
 rm -rf .build
 
