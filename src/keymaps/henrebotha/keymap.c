@@ -161,7 +161,7 @@ void matrix_scan_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     // Only prefix on keydown
-    if (biton32(layer_state) == 3) {
+    if (biton32(layer_state) == LAYER_TMUX) {
       if (keycode >= KC_A && keycode <= KC_UP) {
         SEND_STRING(SS_LCTRL("b"));
         return true;
