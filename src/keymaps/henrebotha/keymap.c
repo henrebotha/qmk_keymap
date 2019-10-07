@@ -1,4 +1,4 @@
-// v1.5.3
+// v1.5.4
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -155,7 +155,7 @@ void matrix_scan_user(void) {
     // after a KC_TASK press. The rest of the time, the conditional will prevent
     // any performance cost.
     if (timer_elapsed(kc_task_release_time) > 500) {
-       SEND_STRING(SS_UP(X_LALT));
+       unregister_code(KC_LALT);
        kc_task_release_after_500 = false;
     }
   }
@@ -166,14 +166,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // Only prefix on keydown
     if (biton32(layer_state) == LAYER_TMUX) {
       if (keycode >= KC_A && keycode <= KC_UP) {
-        SEND_STRING(SS_LCTRL("b"));
+        tap_code16(C(KC_B));
         return true;
       }
     }
     switch(keycode) {
       case KC_TASK:
         kc_task_release_after_500 = false;
-        SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_TAB));
+        register_code(KC_LALT);
+        tap_code(KC_TAB);
         return false;
     }
   } else {
