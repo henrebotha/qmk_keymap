@@ -46,12 +46,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 #define TAPPING_TERM    200
-#define RETRO_TAPPING
-
-/* /1* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap *1/ */
-/* #define LOCKING_SUPPORT_ENABLE */
-/* /1* Locking resynchronize hack *1/ */
-/* #define LOCKING_RESYNC_ENABLE */
+// this makes it possible to do rolling combos (zx) with keys that convert to
+// other keys on hold (z becomes ctrl when you hold it, and when this option
+// isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
+#define IGNORE_MOD_TAP_INTERRUPT
 
 /* key combination for command */
 #define IS_COMMAND() ( \
@@ -59,57 +57,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
-
-#ifndef LED_BRIGHTNESS_LO
-#define LED_BRIGHTNESS_LO       15
-#endif
-#ifndef LED_BRIGHTNESS_HI
-#define LED_BRIGHTNESS_HI       255
-#endif
-#define LED_BRIGHTNESS_DEFAULT (LED_BRIGHTNESS_HI)
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D7
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 15     // Number of LEDs
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 255
-#define RGBLIGHT_VAL_STEP 12
-
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
 
-// #define RGB_MIDI
-#define RGBW_BB_TWI
-
-#define RGBW 1
-
-/* "debounce" is measured in keyboard scans. Some users reported
- * needing values as high as 15, which was at the time around 50ms.
+/*
+ * The debounce filtering reports a key/switch change directly,
+ * without any extra delay. After that the debounce logic will filter
+ * all further changes, until the key/switch reports the same state for
+ * the given count of scans.
+ * So a perfect switch will get a short debounce period and
+ * a bad key will get a much longer debounce period.
+ * The result is an adaptive debouncing period for each switch.
+ *
  * If you don't define it here, the matrix code will default to
  * 5, which is now closer to 10ms, but still plenty according to
  * manufacturer specs.
- *
- * Default is quite high, because of reports with some production
- * runs seeming to need it. This may change when configuration for
- * this is more directly exposed.
  */
-#define DEBOUNCE    15
-
-#define PREVENT_STUCK_MODIFIERS
+#define DEBOUNCE    10
 
 #define USB_MAX_POWER_CONSUMPTION 500
-
-// #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
-/* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */
-/* #define RGBLIGHT_COLOR_LAYER_2 0xFF, 0x00, 0x00 */
-/* #define RGBLIGHT_COLOR_LAYER_3 0x00, 0xFF, 0x00 */
-/* #define RGBLIGHT_COLOR_LAYER_4 0xFF, 0xFF, 0x00 */
-/* #define RGBLIGHT_COLOR_LAYER_5 0x00, 0xFF, 0xFF */
-/* #define RGBLIGHT_COLOR_LAYER_6 0xFF, 0x00, 0xFF */
-/* #define RGBLIGHT_COLOR_LAYER_7 0xFF, 0xFF, 0xFF */
 
 /*
  * Feature disable options
