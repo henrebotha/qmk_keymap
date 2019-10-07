@@ -1,4 +1,6 @@
-#define LEADER_TIMEOUT 2000
+#define LEADER_TIMEOUT 300
+// Restart the leader key timeout on each keypress
+#define LEADER_PER_KEY_TIMING
 #define ONESHOT_TAP_TOGGLE 3
 // Affects behaviour of CTL_T(ESC) down, T down, CTL_T(ESC) up, T up
 // i.e. releasing the mod-tap key before releasing the other key.
