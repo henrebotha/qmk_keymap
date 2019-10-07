@@ -151,6 +151,9 @@ void matrix_scan_user(void) {
   }
 
   if (kc_task_release_after_500) {
+    // If this operation is slow, it will only affect performance for 500 ms
+    // after a KC_TASK press. The rest of the time, the conditional will prevent
+    // any performance cost.
     if (timer_elapsed(kc_task_release_time) > 500) {
        SEND_STRING(SS_UP(X_LALT));
        kc_task_release_after_500 = false;
