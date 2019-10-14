@@ -1,4 +1,4 @@
-// v1.5.4
+// v1.5.5
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -163,10 +163,16 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    // Only prefix on keydown
-    if (biton32(layer_state) == LAYER_TMUX) {
+    // We only add the Tmux prefix on keydown.
+    if (layer_state_cmp(layer_state, LAYER_TMUX)) {
       if (keycode >= KC_A && keycode <= KC_UP) {
+        // The key pressed is not a modifier. Store & clear Shifts, then
+        // prefix, then apply any stored Shifts, and finally allow the pressed
+        // key to be processed.
+        uint8_t saved_shifts = get_mods() & MOD_MASK_SHIFT;
+        del_mods(saved_shifts);
         tap_code16(C(KC_B));
+        add_mods(saved_shifts);
         return true;
       }
     }
