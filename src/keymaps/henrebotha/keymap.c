@@ -1,4 +1,4 @@
-// v1.5.6
+// v2.0.0
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -32,15 +32,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // home layer
   [LAYER_HOME] = LAYOUT_ergodox_pretty(
-    KC_GRAVE,         KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   TG(1),    RESET,    KC_6,    KC_7,    KC_8,      KC_9,     KC_0,     KC_BSPACE,
-    KC_TAB,           KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,   _______,  _______,  KC_Y,    KC_U,    KC_I,      KC_O,     KC_P,     KC_BSLASH,
-    CTL_T(KC_ESCAPE), KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_H,     KC_J,     KC_K,    KC_L,    KC_SCOLON, KC_QUOTE,
-    KC_LGUI,          KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,   KC_MINUS, KC_EQUAL, KC_N,    KC_M,    KC_COMMA,  KC_DOT,   KC_SLASH, KC_RGUI,
-    KC_HYPR,          KC_TASK, KC_LEAD, OSL(3), OSL(2), OSL(2), OSL(3),   KC_LEAD,  _______, KC_HYPR,
+    XXXXXXX,   KC_1,    KC_2,    KC_3,    KC_4,   KC_5,   XXXXXXX, RESET,   KC_6,    KC_7,    KC_8,      KC_9,     KC_0,     XXXXXXX,
+    KC_GRAVE,  KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,   XXXXXXX, XXXXXXX, KC_Y,    KC_U,    KC_I,      KC_O,     KC_P,     KC_BSLASH,
+    KC_MINUS,  KC_A,    KC_S,    KC_D,    KC_F,   KC_G,                     KC_H,    KC_J,    KC_K,      KC_L,     KC_SCOLON,KC_QUOTE,
+    XXXXXXX,   KC_Z,    KC_X,    KC_C,    KC_V,   KC_B,   XXXXXXX, XXXXXXX, KC_N,    KC_M,    KC_COMMA,  KC_DOT,   KC_SLASH, XXXXXXX,
+    XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, OSL(2),                                    KC_BSPC, XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,
 
-    KC_MUTE,   KC_VOLU,  KC_MPRV, KC_MNXT,
-    KC_VOLD,   KC_MPLY,
-    KC_LSHIFT, KC_SPACE, KC_LALT, KC_RALT, KC_ENTER, KC_RSHIFT
+               KC_TAB,  XXXXXXX, XXXXXXX, KC_RGUI,
+                  CTL_T(KC_ESC), OSL(3),
+    KC_SPC,    KC_LSFT, KC_LALT, KC_RALT, KC_ENTER, KC_RSFT
   ),
 
   // gaming layer (to be completed)
@@ -56,13 +56,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______
   ),
 
-  // function layer
+  // nav & symbol layer
   [LAYER_FUNCTION] = LAYOUT_ergodox_pretty(
-    KC_ESCAPE, KC_F1,     KC_F2,   KC_F3,   KC_F4,       KC_F5,   _______, _______, KC_F6,   KC_F7,       KC_F8,    KC_F9,   KC_F10,  KC_DELETE,
-    _______,   KC_PGUP,   KC_HOME, KC_UP,   KC_END,      _______, _______, _______, _______, _______,     _______,  KC_F11,  KC_F12,  KC_INSERT,
-    _______,   KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RIGHT,    _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,    _______,  _______,
-    _______,   _______,   _______, KC_LPRN, KC_LBRACKET, KC_LCBR, _______, _______, KC_RCBR, KC_RBRACKET, KC_RPRN,  _______, _______, _______,
-    _______,   _______,   _______, _______, TO(0),       TO(0),   _______, _______, _______, _______,
+    _______, KC_F1,     KC_F2,   KC_F3,   KC_F4,       KC_F5,   _______, _______, KC_F6,   KC_F7,       KC_F8,    KC_F9,   KC_F10,  KC_DELETE,
+    _______, KC_PGUP,   KC_HOME, KC_UP,   KC_END,      _______, _______, _______, _______, _______,     _______,  KC_F11,  KC_F12,  KC_INSERT,
+    _______, KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RIGHT,    _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,    _______,  _______,
+    _______, _______,   _______, KC_LPRN, KC_LBRACKET, KC_LCBR, _______, _______, KC_RCBR, KC_RBRACKET, KC_RPRN,  _______, _______, _______,
+    _______, _______,   _______, _______, TO(0),       TO(0),   _______, _______, _______, _______,
 
     _______, _______, _______, _______,
     _______, _______,
