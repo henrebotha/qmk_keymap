@@ -1,4 +1,4 @@
-// v1.5.7
+// v1.5.8
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     KC_MUTE,   KC_VOLU,  KC_MPRV, KC_MNXT,
     KC_VOLD,   KC_MPLY,
-    KC_LSHIFT, KC_SPACE, KC_LALT, KC_RALT, KC_ENTER, KC_RSHIFT
+    KC_LSHIFT, KC_SPACE, KC_LALT, KC_RALT, KC_ENTER, RSFT_T(KC_MINUS)
   ),
 
   // gaming layer (to be completed)
