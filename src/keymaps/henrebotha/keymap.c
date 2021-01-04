@@ -1,4 +1,4 @@
-// v1.5.8
+// v1.5.9
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE, KC_F1,     KC_F2,   KC_F3,   KC_F4,       KC_F5,   _______, _______, KC_F6,   KC_F7,       KC_F8,    KC_F9,   KC_F10,  KC_DELETE,
     _______,   KC_PGUP,   KC_HOME, KC_UP,   KC_END,      _______, _______, _______, _______, _______,     _______,  KC_F11,  KC_F12,  KC_INSERT,
     _______,   KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RIGHT,    _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,    _______,  KC_PSCR,
-    _______,   _______,   _______, KC_LPRN, KC_LBRACKET, KC_LCBR, _______, _______, KC_RCBR, KC_RBRACKET, KC_RPRN,  _______, _______, _______,
+    _______,   _______,   _______, KC_LPRN, KC_LBRACKET, KC_LCBR, _______, _______, KC_RCBR, KC_RBRACKET, KC_RPRN,  _______, KC_APP,  _______,
     _______,   _______,   _______, _______, TO(0),       TO(0),   _______, _______, _______, _______,
 
     _______, _______, _______, _______,
