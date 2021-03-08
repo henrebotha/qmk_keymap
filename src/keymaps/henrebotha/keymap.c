@@ -1,4 +1,4 @@
-// v1.5.9
+// v1.6.0
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -24,6 +24,7 @@ enum custom_keycodes {
 
 enum layers {
   LAYER_HOME = 0,
+  LAYER_WORKMAN,
   LAYER_GAMING,
   LAYER_FUNCTION,
   LAYER_TMUX,
@@ -44,7 +45,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┤       │      │       ├───────┼───────┼───────┼───────┼───────┼───────┤
     KC_LGUI,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_MINS,       KC_EQL ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RGUI,
 // ├───────┼───────┼───────┼───────┼───────┼───────┴───────╯      ╰───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-    KC_HYPR,KC_TASK,KC_LEAD,OSL(3) ,OSL(2) ,                                       OSL(2) ,OSL(3) ,KC_LEAD,XXXXXXX,KC_HYPR,
+    KC_HYPR,KC_TASK,KC_LEAD,OSL(4) ,OSL(3) ,                                       OSL(3) ,OSL(4) ,KC_LEAD,XXXXXXX,KC_HYPR,
+// ╰───────┴───────┴───────┴───────┴───────╯ ╭───────┬───────╮  ╭───────┬───────╮ ╰───────┴───────┴───────┴───────┴───────╯
+                                              KC_MUTE,KC_VOLU,   KC_MPRV,KC_MNXT,
+//                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
+                                                      KC_VOLD,   KC_MPLY,
+//                                   │       │       ├───────┤  ├───────┤       │       │
+                                      KC_LSFT,KC_SPC ,KC_LALT,   KC_RALT,KC_ENT ,RSFT_MI
+//                                   ╰───────┴───────┴───────╯  ╰───────┴───────┴───────╯
+  ),
+
+  // workman version of home layer
+  [LAYER_WORKMAN] = LAYOUT_ergodox_pretty(
+// ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮      ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮
+    KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,TO(0)  ,       RESET  ,KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_BSPC,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    KC_TAB ,KC_Q   ,KC_D   ,KC_R   ,KC_W   ,KC_B   ,XXXXXXX,       XXXXXXX,KC_J   ,KC_F   ,KC_U   ,KC_P   ,KC_SCLN,KC_BSLS,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    CTL_ESC,KC_A   ,KC_S   ,KC_H   ,KC_T   ,KC_G   ,                       KC_Y   ,KC_N   ,KC_E   ,KC_O   ,KC_I   ,KC_QUOT,
+// ├───────┼───────┼───────┼───────┼───────┼───────┤       │      │       ├───────┼───────┼───────┼───────┼───────┼───────┤
+    KC_LGUI,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,KC_MINS,       KC_EQL ,KC_K   ,KC_L   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RGUI,
+// ├───────┼───────┼───────┼───────┼───────┼───────┴───────╯      ╰───────┴───────┼───────┼───────┼───────┼───────┼───────┤
+    KC_HYPR,KC_TASK,KC_LEAD,OSL(4) ,OSL(3) ,                                       OSL(3) ,OSL(4) ,KC_LEAD,XXXXXXX,KC_HYPR,
 // ╰───────┴───────┴───────┴───────┴───────╯ ╭───────┬───────╮  ╭───────┬───────╮ ╰───────┴───────┴───────┴───────┴───────╯
                                               KC_MUTE,KC_VOLU,   KC_MPRV,KC_MNXT,
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
