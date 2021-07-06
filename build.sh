@@ -16,12 +16,12 @@ cp -r src/keymaps/$KEYMAP $QMK_DIR/keyboards/$KEYBOARD/keymaps/
 # 2. Run string replacement to tweak EZ defaults (this is an alternative to
 # copying the overrides dir)
 
-# 3. Make clean
+# 3. Clean
 cd $QMK_DIR
-make $KEYBOARD:$KEYMAP:clean
+qmk clean --all
 
-# 4. Make teensy build
-make $KEYBOARD:$KEYMAP
+# 4. Compile
+qmk compile -kb ergodox_ez -km henrebotha
 
 # 5. Clean up
 cp -r .build ../.build
