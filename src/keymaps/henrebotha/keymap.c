@@ -1,4 +1,4 @@
-// v1.6.1
+// v1.6.2
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -13,6 +13,7 @@
 
 #define CTL_ESC CTL_T(KC_ESC)
 #define RSFT_MI RSFT_T(KC_MINUS)
+#define LSFT_TA LSFT_T(KC_TAB)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -52,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
                                                       KC_VOLD,   KC_MPLY,
 //                                   │       │       ├───────┤  ├───────┤       │       │
-                                      KC_LSFT,KC_SPC ,KC_LALT,   KC_RALT,KC_ENT ,RSFT_MI
+                                      LSFT_TA,KC_SPC ,KC_LALT,   KC_RALT,KC_ENT ,RSFT_MI
 //                                   ╰───────┴───────┴───────╯  ╰───────┴───────┴───────╯
   ),
 
@@ -73,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
                                                       KC_VOLD,   KC_MPLY,
 //                                   │       │       ├───────┤  ├───────┤       │       │
-                                      KC_LSFT,KC_SPC ,KC_LALT,   KC_RALT,KC_ENT ,RSFT_MI
+                                      LSFT_TA,KC_SPC ,KC_LALT,   KC_RALT,KC_ENT ,RSFT_MI
 //                                   ╰───────┴───────┴───────╯  ╰───────┴───────┴───────╯
   ),
 
