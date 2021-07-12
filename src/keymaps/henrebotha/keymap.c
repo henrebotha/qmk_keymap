@@ -1,4 +1,4 @@
-// v1.6.2
+// v1.6.3
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -277,6 +277,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   }
   return true;
+}
+
+bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTL_ESC:
+        case LSFT_TA:
+        case RSFT_MI:
+            return true;
+        default:
+            return false;
+    }
 }
 
 uint32_t layer_state_set_user(uint32_t state) {

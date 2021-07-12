@@ -12,6 +12,7 @@
 // when held. Otherwise I'd like to have it on, so that e.g. a long press of
 // CTL_T(KC_ESCAPE) still emits Esc. Oh well!
 #undef RETRO_TAPPING
+#define TAPPING_FORCE_HOLD_PER_KEY
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
