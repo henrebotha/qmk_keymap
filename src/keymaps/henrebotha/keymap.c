@@ -1,4 +1,4 @@
-// v1.6.3
+// v1.6.5
 
 #include "ergodox_ez.h"
 #include "debug.h"
@@ -14,6 +14,14 @@
 #define CTL_ESC CTL_T(KC_ESC)
 #define RSFT_MI RSFT_T(KC_MINUS)
 #define LSFT_TA LSFT_T(KC_TAB)
+#define HM_LSFT OSM(MOD_LSFT)
+#define HM_LALT OSM(MOD_LALT)
+#define HM_LCTL OSM(MOD_LCTL)
+#define HM_LGUI OSM(MOD_LGUI)
+#define HM_RSFT OSM(MOD_RSFT)
+#define HM_RALT OSM(MOD_RALT)
+#define HM_RCTL OSM(MOD_RCTL)
+#define HM_RGUI OSM(MOD_RGUI)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -25,6 +33,7 @@ enum custom_keycodes {
 
 enum layers {
   LAYER_HOME = 0,
+  LAYER_MODS,
   LAYER_WORKMAN,
   LAYER_GAMING,
   LAYER_FUNCTION,
@@ -39,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // home layer
   [LAYER_HOME] = LAYOUT_ergodox_pretty(
 // ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮      ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮
-    KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,TG(1)  ,       RESET  ,KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_BSPC,
+    KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,TG(2)  ,       RESET  ,KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_BSPC,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
     KC_TAB ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,XXXXXXX,       XXXXXXX,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_BSLS,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
@@ -47,13 +56,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┤       │      │       ├───────┼───────┼───────┼───────┼───────┼───────┤
     KC_LGUI,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_MINS,       KC_EQL ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RGUI,
 // ├───────┼───────┼───────┼───────┼───────┼───────┴───────╯      ╰───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-    KC_HYPR,KC_TASK,KC_LEAD,OSL(4) ,OSL(3) ,                                       OSL(3) ,OSL(4) ,KC_LEAD,XXXXXXX,KC_HYPR,
+    KC_HYPR,KC_TASK,KC_LEAD,OSL(5) ,OSL(4) ,                                       OSL(4) ,OSL(5) ,KC_LEAD,XXXXXXX,KC_HYPR,
 // ╰───────┴───────┴───────┴───────┴───────╯ ╭───────┬───────╮  ╭───────┬───────╮ ╰───────┴───────┴───────┴───────┴───────╯
                                               KC_MUTE,KC_VOLU,   KC_MPRV,KC_MNXT,
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
                                                       KC_VOLD,   KC_MPLY,
 //                                   │       │       ├───────┤  ├───────┤       │       │
-                                      LSFT_TA,KC_SPC ,KC_LALT,   KC_RALT,KC_ENT ,RSFT_MI
+                                      MO(1)  ,KC_SPC ,KC_LALT,   KC_RALT,KC_ENT ,RSFT_MI
+//                                   ╰───────┴───────┴───────╯  ╰───────┴───────┴───────╯
+  ),
+
+  // home row mods layer
+  [LAYER_MODS] = LAYOUT_ergodox_pretty(
+// ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮      ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮
+    _______,_______,_______,_______,_______,_______,_______,       _______,_______,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,       _______,_______,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,HM_LGUI,HM_LALT,HM_LCTL,HM_LSFT,_______,                       HM_RSFT,HM_RCTL,HM_RALT,HM_RGUI,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┤       │      │       ├───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,_______,_______,       _______,_______,_______,_______,_______,_______,_______,
+// ├───────┼───────┼───────┼───────┼───────┼───────┴───────╯      ╰───────┴───────┼───────┼───────┼───────┼───────┼───────┤
+    _______,_______,_______,_______,_______,                                       _______,_______,_______,_______,_______,
+// ╰───────┴───────┴───────┴───────┴───────╯ ╭───────┬───────╮  ╭───────┬───────╮ ╰───────┴───────┴───────┴───────┴───────╯
+                                              _______,_______,   _______,_______,
+//                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
+                                                      _______,   _______,
+//                                   │       │       ├───────┤  ├───────┤       │       │
+                                      _______,_______,_______,   _______,_______,_______
 //                                   ╰───────┴───────┴───────╯  ╰───────┴───────┴───────╯
   ),
 
@@ -137,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
                                                       _______,   _______,
 //                                   │       │       ├───────┤  ├───────┤       │       │
-                                      _______,_______,_______,   _______,_______,_______
+                                      KC_LSFT,_______,_______,   _______,_______,KC_RSFT
 //                                   ╰───────┴───────┴───────╯  ╰───────┴───────┴───────╯
   ),
 
@@ -250,14 +280,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     // We only add the Tmux prefix on keydown.
     if (layer_state_cmp(layer_state, LAYER_TMUX)) {
-      if (keycode >= KC_A && keycode <= KC_UP) {
+      // https://discord.com/channels/440868230475677696/440868230475677698/864133994546987039
+      if (keycode >= KC_A && keycode <= KC_EXSEL) {
         // The key pressed is not a modifier. Store & clear Shifts, then
         // prefix, then apply any stored Shifts, and finally allow the pressed
         // key to be processed.
         uint8_t saved_shifts = get_mods() & MOD_MASK_SHIFT;
-        del_mods(saved_shifts);
+        // uint8_t saved_weak_shifts = get_weak_mods() & MOD_MASK_SHIFT;
+        // if (saved_shifts > 0) {
+        //   send_string("Saved shifts");
+        // }
+        // if (saved_weak_shifts > 0) {
+        //   send_string("Saved weak shifts");
+        // }
+        unregister_mods(saved_shifts);
+        // del_weak_mods(saved_weak_shifts);
         tap_code16(C(KC_B));
         add_mods(saved_shifts);
+        // add_weak_mods(saved_weak_shifts);
         return true;
       }
     }
