@@ -21,6 +21,7 @@ enum custom_keycodes {
   VRSN,
   RGB_SLD,
   KC_TASK,
+  CH_UNSA,
 };
 
 enum layers {
@@ -108,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
     _______,KC_PGDN,KC_LEFT,KC_DOWN,KC_RGHT,_______,                       KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,_______,KC_PSCR,
 // ├───────┼───────┼───────┼───────┼───────┼───────┤       │      │       ├───────┼───────┼───────┼───────┼───────┼───────┤
-    _______,_______,_______,KC_LPRN,KC_LBRC,KC_LCBR,_______,       _______,KC_RCBR,KC_RBRC,KC_RPRN,_______,KC_APP ,_______,
+    _______,CH_UNSA,_______,KC_LPRN,KC_LBRC,KC_LCBR,_______,       _______,KC_RCBR,KC_RBRC,KC_RPRN,_______,KC_APP ,_______,
 // ├───────┼───────┼───────┼───────┼───────┼───────┴───────╯      ╰───────┴───────┼───────┼───────┼───────┼───────┼───────┤
     _______,_______,_______,_______,TO(0)  ,                                       TO(0)  ,_______,_______,_______,_______,
 // ╰───────┴───────┴───────┴───────┴───────╯ ╭───────┬───────╮  ╭───────┬───────╮ ╰───────┴───────┴───────┴───────┴───────╯
@@ -266,6 +267,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         kc_task_release_after_500 = false;
         register_code(KC_LALT);
         tap_code(KC_TAB);
+        return false;
+      case CH_UNSA:
+        SEND_STRING("thisisunsafe");
         return false;
     }
   } else {
