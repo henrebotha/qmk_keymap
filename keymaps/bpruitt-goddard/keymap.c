@@ -29,14 +29,26 @@ enum board_layers {
     _FUNCTION
 };
 
+// Left-hand home row mods
+#define ALT_A LALT_T(KC_A)
+#define CTL_O LCTL_T(KC_O)
+#define SFT_E LSFT_T(KC_E)
+#define GUI_U LGUI_T(KC_U)
+
+// Right-hand home row mods
+#define GUI_H RGUI_T(KC_H)
+#define SFT_T RSFT_T(KC_T)
+#define CTL_N RCTL_T(KC_N)
+#define ALT_S RALT_T(KC_S)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_BSLS, KC_COMM,  KC_DOT,   KC_P,   KC_Y,    KC_T,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_SLSH,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_QUOT, LALT_T(KC_A), LCTL_T(KC_O), LSFT_T(KC_E), LGUI_T(KC_U), KC_I,     KC_D, RGUI_T(KC_H), RSFT_T(KC_T), RCTL_T(KC_N), RALT_T(KC_S), KC_MINS,
+     KC_QUOT,  ALT_A,   CTL_O,   SFT_E,  GUI_U,   KC_I,                           KC_D,   GUI_H,   SFT_T,    CTL_N,  ALT_S,  KC_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      SC_LSPO,   KC_AT,   KC_Q,    KC_J,   KC_K,    KC_X,                          KC_B,    KC_M, KC_W,  KC_V, KC_Z,  SC_RSPC,
+      SC_LSPO, KC_AT,   KC_Q,    KC_J,   KC_K,   KC_X,                            KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  SC_RSPC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
      LT(_MEDIA, KC_CNCL), LT(_NAV, KC_ENT), LT(_BUTTON, KC_TAB),                LT(_SYMBOL, KC_BSPC), LT(_NUM, KC_SPC), LT(_FUNCTION, KC_DEL)
                                       //`--------------------------'  `--------------------------'
