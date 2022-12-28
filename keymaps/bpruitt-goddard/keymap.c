@@ -44,11 +44,11 @@ enum board_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-     KC_BSLS, KC_COMM,  KC_DOT,   KC_P,   KC_Y,    KC_T,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_SLSH,
+     KC_BSLS, KC_SCLN, KC_COMM,  KC_DOT,   KC_P,    KC_Y,                          KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_SLSH,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_QUOT,  ALT_A,   CTL_O,   SFT_E,  GUI_U,   KC_I,                           KC_D,   GUI_H,   SHFT_T,  CTL_N,  ALT_S,  KC_MINS,
+     KC_QUOT,  ALT_A,   CTL_O,   SFT_E,   GUI_U,   KC_I,                           KC_D,   GUI_H,   SHFT_T,  CTL_N,  ALT_S,  KC_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      SC_LSPO, KC_AT,   KC_Q,    KC_J,   KC_K,   KC_X,                            KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  SC_RSPC,
+      SC_LSPO,  KC_AT,   KC_Q,    KC_J,    KC_K,   KC_X,                            KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  SC_RSPC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
      LT(_MEDIA, KC_CNCL), LT(_NAV, KC_ENT), LT(_BUTTON, KC_TAB),                LT(_SYMBOL, KC_BSPC), LT(_NUM, KC_SPC), LT(_FUNCTION, KC_DEL)
                                       //`--------------------------'  `--------------------------'
