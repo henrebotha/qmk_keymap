@@ -29,6 +29,15 @@ enum board_layers {
   _FUNCTION
 };
 
+// SAFE_RANGE must be used to tag the first element of the enum.
+// DYNAMIC_MACRO_RANGE must always be the last element of the enum if other
+// values are added (as its value is used to create a couple of other keycodes
+// after it).
+enum custom_keycodes {
+    MC_ARROW = SAFE_RANGE,
+    DYNAMIC_MACRO_RANGE
+};
+
 // Left-hand home row mods
 #define ALT_A LALT_T(KC_A)
 #define CTL_O LCTL_T(KC_O)
@@ -94,11 +103,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, KC_TILD, KC_EQL, KC_ASTR, KC_PERC, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, KC_GRV, KC_AMPR,                      XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_LBRC, KC_RBRC,MC_ARROW, KC_GRV, KC_AMPR,                      XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_CIRC, KC_HASH, KC_DLR, KC_EXLM, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, XXXXXXX, XXXXXXX,    _______, XXXXXXX, XXXXXXX
+                                          KC_LCBR, XXXXXXX, KC_RCBR,    _______, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -233,6 +242,12 @@ bool oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
+
+    switch(keycode) {
+      case MC_ARROW:
+        SEND_STRING("=>");
+        return false;
+    }
   }
   return true;
 }
