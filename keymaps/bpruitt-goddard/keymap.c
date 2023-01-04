@@ -26,7 +26,8 @@ enum board_layers {
   _BUTTON,
   _SYMBOL,
   _NUM,
-  _FUNCTION
+  _FUNCTION,
+  _GAMING
 };
 
 // SAFE_RANGE must be used to tag the first element of the enum.
@@ -131,7 +132,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_F10,  KC_F1,   KC_F2,   KC_F3,  XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, _______
+                                          DF(_GAMING), XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, _______
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [_GAMING] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,   KC_T,                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LCTL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,  XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,  XXXXXXX, XXXXXXX, XXXXXXX, DF(_BASE),
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_ESC, KC_ENT, KC_TAB,      KC_BSPC, KC_SPC, KC_DEL
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -142,11 +155,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   }
   return rotation;
 }
-
-#define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
-#define L_ADJUST 8
 
 void oled_render_layer_state(void) {
   oled_write_P(PSTR("Layer: "), false);
@@ -171,6 +179,9 @@ void oled_render_layer_state(void) {
       break;
     case _FUNCTION:
       oled_write_ln_P(PSTR("Function"), false);
+      break;
+    case _GAMING:
+      oled_write_ln_P(PSTR("Gaming"), false);
       break;
   }
 }
