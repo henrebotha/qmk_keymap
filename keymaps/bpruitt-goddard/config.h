@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD
 
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #define RGBLED_NUM 54
 #define RGBLED_SPLIT { 27, 27 }
 #define RGBLIGHT_LIMIT_VAL 120
