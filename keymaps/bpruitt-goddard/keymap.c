@@ -186,8 +186,6 @@ void oled_render_layer_state(void) {
   }
 }
 
-char keylog_str[24] = {};
-
 const char code_to_name[60] = {
   ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
   'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -196,24 +194,39 @@ const char code_to_name[60] = {
   'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
   '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
-void set_keylog(uint16_t keycode, keyrecord_t * record) {
-  char name = ' ';
-  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-    (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-    keycode = keycode & 0xFF;
-  }
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-  }
+char key_name = ' ';
+uint16_t last_keycode;
+uint8_t last_row;
+uint8_t last_col;
 
-  // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-    record -> event.key.row, record -> event.key.col,
-    keycode, name);
+void set_keylog(uint16_t keycode, keyrecord_t *record) {
+  key_name = ' ';
+  last_keycode = keycode;
+  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
+      (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { last_keycode = keycode & 0xFF; }
+  if (keycode < 60) {
+    key_name = code_to_name[keycode];
+  }
+  last_row = record->event.key.row;
+  last_col = record->event.key.col;
+}
+
+const char *depad_str(const char *depad_str, char depad_char) {
+  while (*depad_str == depad_char) ++depad_str;
+  return depad_str;
 }
 
 void oled_render_keylog(void) {
-  oled_write(keylog_str, false);
+  const char *last_row_str = get_u8_str(last_row, ' ');
+  oled_write(depad_str(last_row_str, ' '), false);
+  oled_write_P(PSTR("x"), false);
+  const char *last_col_str = get_u8_str(last_col, ' ');
+  oled_write(depad_str(last_col_str, ' '), false);
+  oled_write_P(PSTR(", k"), false);
+  const char *last_keycode_str = get_u16_str(last_keycode, ' ');
+  oled_write(depad_str(last_keycode_str, ' '), false);
+  oled_write_P(PSTR(":"), false);
+  oled_write_char(key_name, false);
 }
 
 void render_bootmagic_status(bool status) {
