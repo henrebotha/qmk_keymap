@@ -229,21 +229,6 @@ void oled_render_keylog(void) {
   oled_write_char(key_name, false);
 }
 
-void render_bootmagic_status(bool status) {
-  /* Show Ctrl-Gui Swap options */
-  static const char PROGMEM logo[][2][3] = {
-    {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
-    {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
-  };
-  if (status) {
-    oled_write_ln_P(logo[0][0], false);
-    oled_write_ln_P(logo[0][1], false);
-  } else {
-    oled_write_ln_P(logo[1][0], false);
-    oled_write_ln_P(logo[1][1], false);
-  }
-}
-
 void oled_render_logo(void) {
   static const char PROGMEM crkbd_logo[] = {
     0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
