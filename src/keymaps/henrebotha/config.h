@@ -5,14 +5,14 @@
 // Affects behaviour of CTL_T(ESC) down, T down, CTL_T(ESC) up, T up
 // i.e. releasing the mod-tap key before releasing the other key.
 //
-// With I_M_T_I: emits Esc, T
-// Without:      emits Ctrl-T
-#undef IGNORE_MOD_TAP_INTERRUPT
+// With H_O_O_K_P: emits Ctrl-T
+// Without:        emits Esc, T
+#define HOLD_ON_OTHER_KEY_PRESS
 // Retro tap seems to have caused my Tmux layer key to emit spurious nonsense
 // when held. Otherwise I'd like to have it on, so that e.g. a long press of
 // CTL_T(KC_ESCAPE) still emits Esc. Oh well!
 #undef RETRO_TAPPING
-#define TAPPING_FORCE_HOLD_PER_KEY
+#define QUICK_TAP_TERM_PER_KEY
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE

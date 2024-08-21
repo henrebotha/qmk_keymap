@@ -10,7 +10,9 @@ rm -rf .build
 
 # 1. Copy my files into their appropriate locations inside QMK
 mkdir -p $QMK_DIR/keyboards/$KEYBOARD/keymaps/$KEYMAP
-cp -r src/keymaps/$KEYMAP $QMK_DIR/keyboards/$KEYBOARD/keymaps/
+ln -i -s "$(pwd)"/src/keymaps/$KEYMAP/config.h "$(pwd)"/$QMK_DIR/keyboards/$KEYBOARD/keymaps/$KEYMAP/config.h
+ln -i -s "$(pwd)"/src/keymaps/$KEYMAP/keymap.c "$(pwd)"/$QMK_DIR/keyboards/$KEYBOARD/keymaps/$KEYMAP/keymap.c
+ln -i -s "$(pwd)"/src/keymaps/$KEYMAP/rules.mk "$(pwd)"/$QMK_DIR/keyboards/$KEYBOARD/keymaps/$KEYMAP/rules.mk
 # cp -r src/keymaps/overrides/ $QMK_DIR/keyboards/$KEYBOARD
 
 # 2. Run string replacement to tweak EZ defaults (this is an alternative to

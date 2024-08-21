@@ -1,23 +1,13 @@
 // v1.7.2
 
-#include "ergodox_ez.h"
-#include "debug.h"
-#include "action_layer.h"
-#include "action_util.h"
+#include QMK_KEYBOARD_H
 #include "version.h"
-
-#include "keymap_german.h"
-#include "keymap_nordic.h"
 
 #define PERMISSIVE_HOLD
 
 #define CTL_ESC CTL_T(KC_ESC)
 #define RSFT_MI RSFT_T(KC_MINUS)
 #define LSFT_TA LSFT_T(KC_TAB)
-
-#define MI_DIE MI_ALLOFF
-#define MI_TD MI_TRNSD
-#define MI_TU MI_TRNSU
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -54,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┤       │      │       ├───────┼───────┼───────┼───────┼───────┼───────┤
     KC_LGUI,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_MINS,       KC_EQL ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RGUI,
 // ├───────┼───────┼───────┼───────┼───────┼───────┴───────╯      ╰───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-    KC_HYPR,KC_TASK,KC_LEAD,OSL(4) ,OSL(3) ,                                       OSL(3) ,OSL(4) ,KC_LEAD,XXXXXXX,KC_HYPR,
+    KC_HYPR,KC_TASK,QK_LEAD,OSL(4) ,OSL(3) ,                                       OSL(3) ,OSL(4) ,QK_LEAD,XXXXXXX,KC_HYPR,
 // ╰───────┴───────┴───────┴───────┴───────╯ ╭───────┬───────╮  ╭───────┬───────╮ ╰───────┴───────┴───────┴───────┴───────╯
                                               KC_MUTE,KC_VOLU,   KC_MPRV,KC_MNXT,
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
@@ -75,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┤       │      │       ├───────┼───────┼───────┼───────┼───────┼───────┤
     KC_LGUI,KC_Z   ,KC_X   ,KC_M   ,KC_C   ,KC_V   ,KC_MINS,       KC_EQL ,KC_K   ,KC_L   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RGUI,
 // ├───────┼───────┼───────┼───────┼───────┼───────┴───────╯      ╰───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-    KC_HYPR,KC_TASK,KC_LEAD,OSL(4) ,OSL(3) ,                                       OSL(3) ,OSL(4) ,KC_LEAD,XXXXXXX,KC_HYPR,
+    KC_HYPR,KC_TASK,QK_LEAD,OSL(4) ,OSL(3) ,                                       OSL(3) ,OSL(4) ,QK_LEAD,XXXXXXX,KC_HYPR,
 // ╰───────┴───────┴───────┴───────┴───────╯ ╭───────┬───────╮  ╭───────┬───────╮ ╰───────┴───────┴───────┴───────┴───────╯
                                               KC_MUTE,KC_VOLU,   KC_MPRV,KC_MNXT,
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
@@ -109,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // function layer
   [LAYER_FUNCTION] = LAYOUT_ergodox_pretty(
 // ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮      ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮
-    KC_ESC ,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,_______,       RESET  ,KC_F6  ,KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_DEL ,
+    KC_ESC ,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,_______,       QK_BOOT,KC_F6  ,KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_DEL ,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
     _______,KC_PGUP,KC_HOME,KC_UP  ,KC_END ,_______,_______,       _______,_______,_______,_______,KC_F11 ,KC_F12 ,KC_INS ,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
@@ -151,21 +141,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // midi layer
   [LAYER_MIDI] = LAYOUT_ergodox_pretty(
 // ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮      ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮
-    MI_Ds_1,MI_E_1, MI_F_1 ,MI_Fs_1,MI_G_1 ,MI_Gs_1,_______,       XXXXXXX,MI_A_1 ,MI_As_1,MI_B_1 ,MI_C_2 ,MI_Cs_2,MI_D_2 ,
+    MI_Ds1 ,MI_E1  ,MI_F1  ,MI_Fs1 ,MI_G1  ,MI_Gs1 ,_______,       XXXXXXX,MI_A1  ,MI_As1 ,MI_B1  ,MI_C2  ,MI_Cs2 ,MI_D2  ,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-    MI_As  ,MI_B   ,MI_C_1 ,MI_Cs_1,MI_D_1 ,MI_Ds_1,MI_TD  ,       MI_TU  ,MI_E_1 ,MI_F_1 ,MI_Fs_1,MI_G_1 ,MI_Gs_1,MI_A_1 ,
+    MI_As  ,MI_B   ,MI_C1  ,MI_Cs1 ,MI_D1  ,MI_Ds1 ,MI_TRSD,       MI_TRSU,MI_E1  ,MI_F1  ,MI_Fs1 ,MI_G1  ,MI_Gs1 ,MI_A1  ,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
-    MI_F   ,MI_Fs  ,MI_G   ,MI_Gs  ,MI_A   ,MI_As  ,                       MI_B   ,MI_C_1 ,MI_Cs_1,MI_D_1 ,MI_Ds_1,MI_E_1 ,
+    MI_F   ,MI_Fs  ,MI_G   ,MI_Gs  ,MI_A   ,MI_As  ,                       MI_B   ,MI_C1  ,MI_Cs1 ,MI_D1  ,MI_Ds1 ,MI_E1  ,
 // ├───────┼───────┼───────┼───────┼───────┼───────┤       │      │       ├───────┼───────┼───────┼───────┼───────┼───────┤
     MI_C   ,MI_Cs  ,MI_D   ,MI_Ds  ,MI_E   ,MI_F   ,MI_OCTD,       MI_OCTU,MI_Fs  ,MI_G   ,MI_Gs  ,MI_A   ,MI_As  ,MI_B   ,
 // ├───────┼───────┼───────┼───────┼───────┼───────┴───────╯      ╰───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-    _______,_______,_______,TO(0)  ,_______,                                       _______,TO(0)  ,_______,_______,MI_DIE ,
+    _______,_______,_______,TO(0)  ,_______,                                       _______,TO(0)  ,_______,_______,MI_AOFF,
 // ╰───────┴───────┴───────┴───────┴───────╯ ╭───────┬───────╮  ╭───────┬───────╮ ╰───────┴───────┴───────┴───────┴───────╯
                                               _______,_______,   _______,_______,
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
                                                       _______,   _______,
 //                                   │       │       ├───────┤  ├───────┤       │       │
-                                      MI_SUS ,MI_CHD ,MI_CHU ,   _______,MI_VELD,MI_VELU
+                                      MI_SUST,MI_CHND,MI_CHNU,   _______,MI_VELD,MI_VELU
 //                                   ╰───────┴───────┴───────╯  ╰───────┴───────┴───────╯
   ),
 
@@ -258,37 +248,26 @@ const uint16_t PROGMEM fn_actions[] = {
   [1] = ACTION_LAYER_TAP_TOGGLE(1)
 };
 
-LEADER_EXTERNS();
-
 bool kc_task_release_after_500 = false;
 uint16_t kc_task_release_time;
 
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
+void leader_end_user(void) {
+  if (leader_sequence_four_keys(KC_G, KC_G, KC_X, KC_2)) {
     // Guilty Gear XX Accent Core Plus R, aka the final GG X2
-    SEQ_FOUR_KEYS(KC_G, KC_G, KC_X, KC_2) {
-      layer_on(LAYER_GS_GGX2);
-    }
-
+    layer_on(LAYER_GS_GGX2);
+  } else if (leader_sequence_three_keys(KC_S, KC_C, KC_B)) {
     // Super Crate Box
-    SEQ_THREE_KEYS(KC_S, KC_C, KC_B) {
-      layer_on(LAYER_GS_SCB);
-    }
-
+    layer_on(LAYER_GS_SCB);
+  } else if (leader_sequence_three_keys(KC_T, KC_A, KC_L)) {
     // Talented
-    SEQ_THREE_KEYS(KC_T, KC_A, KC_L) {
-      layer_on(LAYER_GS_TAL);
-    }
-
+    layer_on(LAYER_GS_TAL);
+  } else if (leader_sequence_three_keys(KC_A, KC_R, KC_C)) {
     // Arcus Chroma
-    SEQ_THREE_KEYS(KC_A, KC_R, KC_C) {
-      layer_on(LAYER_GS_ARCUS);
-    }
+    layer_on(LAYER_GS_ARCUS);
   }
+}
 
+void matrix_scan_user(void) {
   if (kc_task_release_after_500) {
     // If this operation is slow, it will only affect performance for 500 ms
     // after a KC_TASK press. The rest of the time, the conditional will prevent
@@ -336,26 +315,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case CTL_ESC:
         case LSFT_TA:
         case RSFT_MI:
-            return true;
+            return 0;
         default:
-            return false;
+            return QUICK_TAP_TERM;
     }
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
-  uint8_t layer = biton32(state);
-
+layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
 
-  switch (layer) {
+  switch (get_highest_layer(state)) {
     case 1:
       ergodox_right_led_1_on();
       break;
