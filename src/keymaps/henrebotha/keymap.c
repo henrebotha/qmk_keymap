@@ -1,4 +1,4 @@
-// v1.7.2
+// v1.7.3
 
 #include QMK_KEYBOARD_H
 #include "version.h"
@@ -12,6 +12,7 @@
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   SW_TASK,
+  SW_TA_M,
   CH_UNSA,
 };
 
@@ -74,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├───────┼───────┼───────┼───────┼───────┼───────┤       │      │       ├───────┼───────┼───────┼───────┼───────┼───────┤
     KC_LGUI,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_MINS,       KC_EQL ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RGUI,
 // ├───────┼───────┼───────┼───────┼───────┼───────┴───────╯      ╰───────┴───────┼───────┼───────┼───────┼───────┼───────┤
-    KC_HYPR,SW_TASK,QK_LEAD,OSL_T  ,OSL_F  ,                                       OSL_F  ,OSL_T  ,QK_LEAD,XXXXXXX,KC_HYPR,
+    KC_HYPR,SW_TASK,QK_LEAD,OSL_T  ,OSL_F  ,                                       OSL_F  ,OSL_T  ,QK_LEAD,SW_TA_M,KC_HYPR,
 // ╰───────┴───────┴───────┴───────┴───────╯ ╭───────┬───────╮  ╭───────┬───────╮ ╰───────┴───────┴───────┴───────┴───────╯
                                               KC_MUTE,KC_VOLU,   KC_MPRV,KC_MNXT,
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
@@ -274,9 +275,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool kc_task_macos = false;
-bool kc_task_release_after_500 = false;
-uint16_t kc_task_release_time;
+// Keep track of which OS mode we're in, which determines the key combination
+// for task switching.
+bool sw_task_macos = false;
+// Keep track of whether we have initiated task switching.
+bool sw_task_started = false;
+// Keep track of whether we should abort task switching.
+bool sw_task_reset = false;
+// Keep track of when we initiated task switching.
+uint16_t sw_task_start_time;
+const uint16_t SW_TASK_TIMEOUT = 500;
 
 void leader_end_user(void) {
   if (leader_sequence_four_keys(KC_G, KC_G, KC_X, KC_2)) {
@@ -295,13 +303,13 @@ void leader_end_user(void) {
 }
 
 void matrix_scan_user(void) {
-  if (kc_task_release_after_500) {
-    // If this operation is slow, it will only affect performance for 500 ms
-    // after a SW_TASK press. The rest of the time, the conditional will prevent
-    // any performance cost.
-    if (timer_elapsed(kc_task_release_time) > 500) {
-       unregister_code(KC_LALT);
-       kc_task_release_after_500 = false;
+  if (sw_task_started) {
+    // If this operation is slow, it will only affect performance for
+    // SW_TASK_TIMEOUT ms after a SW_TASK press. The rest of the time, the
+    // conditional will prevent any performance cost.
+    if (timer_elapsed(sw_task_start_time) > SW_TASK_TIMEOUT) {
+      unregister_code(sw_task_macos ? KC_LGUI : KC_LALT);
+      sw_task_started = false;
     }
   }
 }
@@ -323,9 +331,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     switch(keycode) {
       case SW_TASK:
-        kc_task_release_after_500 = false;
-        register_code(KC_LALT);
+        sw_task_started = false;
+        register_code(sw_task_macos ? KC_LGUI : KC_LALT);
         tap_code(KC_TAB);
+        return false;
+      case SW_TA_M:
+        sw_task_macos = !sw_task_macos;
+        // Clear the "pipeline"
+        sw_task_reset = true;
+        sw_task_started = false;
+        unregister_code(KC_LGUI);
+        unregister_code(KC_LALT);
         return false;
       case CH_UNSA:
         SEND_STRING("thisisunsafe");
@@ -334,8 +350,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   } else {
     switch(keycode) {
       case SW_TASK:
-        kc_task_release_after_500 = true;
-        kc_task_release_time = timer_read();
+        if(sw_task_reset) {
+          // We've hit SW_TA_M while in the middle of task switching, so it's
+          // time to clean up. Do not proceed with task switching. Reset flags.
+          sw_task_reset = false;
+          sw_task_started = false;
+          return false;
+        }
+        sw_task_started = true;
+        sw_task_start_time = timer_read();
         return false;
     }
   }
