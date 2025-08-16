@@ -1,4 +1,4 @@
-// v1.7.3
+// v1.7.4
 
 #include QMK_KEYBOARD_H
 #include "version.h"
@@ -23,7 +23,7 @@ enum layers {
   LAYER_FUNCTION,
   LAYER_TMUX,
   LAYER_MIDI,
-  LAYER_GS_GGX2,
+  LAYER_GS_SHC,
   LAYER_GS_SCB,
   LAYER_GS_TAL,
   LAYER_GS_ARCUS
@@ -35,7 +35,7 @@ enum layers {
 #define OSL_F OSL(LAYER_FUNCTION)
 #define OSL_T OSL(LAYER_TMUX)
 #define OSL_M OSL(LAYER_MIDI)
-#define OSL_GG2 OSL(LAYER_GS_GGX2)
+#define OSL_GG2 OSL(LAYER_GS_SHC)
 #define OSL_SCB OSL(LAYER_GS_SCB)
 #define OSL_TAL OSL(LAYER_GS_TAL)
 #define OSL_GSA OSL(LAYER_GS_ARCUS)
@@ -46,7 +46,7 @@ enum layers {
 #define TG_F TG(LAYER_FUNCTION)
 #define TG_T TG(LAYER_TMUX)
 #define TG_M TG(LAYER_MIDI)
-#define TG_GGX2 TG(LAYER_GS_GGX2)
+#define TG_SHC TG(LAYER_GS_SHC)
 #define TG_SCB TG(LAYER_GS_SCB)
 #define TG_TAL TG(LAYER_GS_TAL)
 #define TG_GSA TG(LAYER_GS_ARCUS)
@@ -57,7 +57,7 @@ enum layers {
 #define TO_F TO(LAYER_FUNCTION)
 #define TO_T TO(LAYER_TMUX)
 #define TO_M TO(LAYER_MIDI)
-#define TO_GGX2 TO(LAYER_GS_GGX2)
+#define TO_SHC TO(LAYER_GS_SHC)
 #define TO_SCB TO(LAYER_GS_SCB)
 #define TO_TAL TO(LAYER_GS_TAL)
 #define TO_GSA TO(LAYER_GS_ARCUS)
@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // game-specific layer
-  [LAYER_GS_GGX2] = LAYOUT_ergodox_pretty(
+  [LAYER_GS_SHC] = LAYOUT_ergodox_pretty(
 // ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮      ╭───────┬───────┬───────┬───────┬───────┬───────┬───────╮
     _______,_______,_______,_______,_______,_______,_______,       _______,_______,_______,_______,_______,_______,_______,
 // ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤      ├───────┼───────┼───────┼───────┼───────┼───────┼───────┤
@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                   ╭───────┼───────┼───────┤  ├───────┼───────┼───────╮
                                                       _______,   _______,
 //                                   │       │       ├───────┤  ├───────┤       │       │
-                                      KC_W   ,_______,_______,   _______,_______,_______
+                                      _______,KC_W   ,_______,   _______,KC_SPC ,_______
 //                                   ╰───────┴───────┴───────╯  ╰───────┴───────┴───────╯
   ),
 
@@ -287,9 +287,9 @@ uint16_t sw_task_start_time;
 const uint16_t SW_TASK_TIMEOUT = 500;
 
 void leader_end_user(void) {
-  if (leader_sequence_four_keys(KC_G, KC_G, KC_X, KC_2)) {
-    // Guilty Gear XX Accent Core Plus R, aka the final GG X2
-    layer_on(LAYER_GS_GGX2);
+  if (leader_sequence_three_keys(KC_S, KC_H, KC_C)) {
+    // Scramble Heart City
+    layer_on(LAYER_GS_SHC);
   } else if (leader_sequence_three_keys(KC_S, KC_C, KC_B)) {
     // Super Crate Box
     layer_on(LAYER_GS_SCB);
