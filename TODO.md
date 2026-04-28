@@ -1,5 +1,19 @@
 # To do
 
+## Numpad layer
+
+Yeah.
+
+Left hand only. That means the activation key is left hand as well.
+
+## macOS Fn key
+
+!!!
+
+And globe key!!!
+
+Ah, unfortunately, [the Fn key (and maybe globe) requires shenanigans](https://gist.github.com/fauxpark/010dcf5d6377c3a71ac98ce37414c6c4). In particular, I have to set VID/PID to those of a real Apple keyboard, which feels icky to me. (I would also lose NKRO, for what it's worth.)
+
 ## Bug in task switcher
 
 The very first press of `SW_TASK` (or maybe the first after `SW_T_M`) never does the timeout/release action.
